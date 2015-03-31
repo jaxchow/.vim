@@ -1,3 +1,9 @@
+" VIM 配置文件
+" 已使用vundle进行插件维护
+" 插件使用主要web前端开发为主
+"
+
+
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
@@ -9,12 +15,34 @@ filetype on
 filetype plugin on
 "语法高亮打开，关键字上色
 syntax on
-call pathogen#infect()
+"call pathogen#infect()
+set rtp+=$HOME/vimfiles/bundle/vundle/  
+call vundle#rc()
+
+Bundle 'kchmck/vim-coffee-script'  
+Bundle 'coffee.vim'  
+Bundle 'html5.vim'
+Bundle 'The-NERD-tree'
+Bundle 'amiorin/vim-project'
+Bundle 'tyok/ack.vim'
+Bundle 'taglist.vim'
+
+Bundle 'jshint.vim'
+Bundle 'jsbeautify'
+Bundle 'Emmet.vim'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Shougo/neocomplcache.vim'
+Bundle 'vimim'
+Bundle "lepture/vim-css"
+Bundle 'luishdez/vim-less'
+Bundle 'css_color.vim'
+Bundle 'ctrlp.vim'
+Bundle 'vim-javascript'
+
 "允许使用indent目录下的文件类型缩进
 
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 "autocmd GUIEnter * simalt ~x
-
 "set guifont=Consolas\:h14,Courier\ New\:h14,Courier\:h14
 set nu
 set cursorline
@@ -28,12 +56,11 @@ set guioptions-=r
 set shortmess=atI
 "不让vim发出讨厌的滴滴声
 set noerrorbells
-
 "高亮显示匹配的括号
 set showmatch
 runtime macros/matchit.vim 
 "设置透明度
-set transparency=30
+"set transparency=30
 "自动补全括号，包括大括号
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 " 用空格键来开关折叠
@@ -45,8 +72,6 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 ":inoremap ] <c-r>=ClosePair(']')<CR>
 ":inoremap < <><ESC>i
 ":inoremap > <c-r>=ClosePair('>')<CR>
-
-
 "使用菜单式匹配列表进行自动补全
 set wildmenu
 let g:NeoComplCache_EnableAtStartup = 1
@@ -78,7 +103,6 @@ autocmd FileType java set omnifunc=javacomplete#Complet
 "highlight SpellRare term=underline cterm=underline
 "highlight clear SpellLocal
 "highlight SpellLocal term=underline cterm=underline
-
 set fdm=indent
 set smartindent
 set sm!
@@ -87,13 +111,11 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 colors koehler
-
 let $VIMDATA = $VIMFILES.'/vimdata'
 "set backupdir=$VIMDATA/backup
 "set directory=$VIMDATA/temp
 set nobackup
 set noswapfile
-
 "自动补全
 set completeopt=longest,menu
 
@@ -102,7 +124,6 @@ set completeopt=longest,menu
 let b:javascript_fold=1
 "启用对dom html css高亮支持
 let javascript_enable_domhtmlcss=1
-
 "emmet 配置
 
 let g:user_emmet_settings = {
@@ -123,7 +144,6 @@ let g:user_emmet_expandabbr_key = '<c-e>'
 let g:use_emmet_complete_tag = 1
 
 "vim authorinfo
-
 "let g:loaded_authorinfo= 1
 "let g:vimrc_author='zhouhuan'
 "let g:vimrc_email='zhouhuan@hundsun.com'
@@ -142,8 +162,6 @@ au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
   let NERDTreeWinSize = 30
   " 强制+ 表示 目录防止目录乱码
   let NERDTreeDirArrows = 0 
-
-
 "Tag list (ctags)
  " autocmd vimenter * Tlist
   let Tlist_Auto_Open=1 
@@ -173,7 +191,6 @@ let g:vimim_chinese_input_mode='static'
 "设置输入候选项目的数量
 let g:vimim_more_candidates=8
 let g:vimim_map='c-space'
-
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
@@ -192,74 +209,11 @@ func! CompileRunGcc()
         exec "!node ./%"
     endif
 endfunc
-" comqueTerm
-"
-"
-"
-let g:ConqueTerm_TERM ='xterm'
-nmap <Leader>sh :ConqueTerm bash<CR>
-nmap <Leader>shs :ConqueTermSplit bash<CR>
-nmap <Leader>shv :ConqueTermVSplit bash<CR>
-nmap <Leader>sht :ConqueTermTab bash<CR>
-
-
-set transparency=10
-
-" {{{ Win平台下窗口全屏组件 gvimfullscreen.dll
-" Alt + Enter 全屏切换
-" Shift + t 降低窗口透明度
-" Shift + y 加大窗口透明度
-" Shift + r 切换Vim是否总在最前面显示
-if has('gui_running') && has('gui_win32') && has('libcall')
-    let g:MyVimLib = 'gvimfullscreen.dll'
-    function! ToggleFullScreen()
-        "let s:IsFullScreen = libcallnr("gvimfullscreen.dll", 'ToggleFullScreen', 0)
-        "let s:IsFullScreen = libcallnr("gvimfullscreen.dll", 'ToggleFullScreen', 27 + 29*256 + 30*256*256)
-        call libcall(g:MyVimLib, 'ToggleFullScreen', 27 + 29*256 + 30*256*256)
-    endfunction
-
-    let g:VimAlpha = 245
-    function! SetAlpha(alpha)
-        let g:VimAlpha = g:VimAlpha + a:alpha
-        if g:VimAlpha < 180
-            let g:VimAlpha = 180
-        endif
-        if g:VimAlpha > 255
-            let g:VimAlpha = 255
-        endif
-        call libcall(g:MyVimLib, 'SetAlpha', g:VimAlpha)
-    endfunction
-
-    let g:VimTopMost = 0
-    function! SwitchVimTopMostMode()
-        if g:VimTopMost == 0
-            let g:VimTopMost = 1
-        else
-            let g:VimTopMost = 0
-        endif
-        call libcall(g:MyVimLib, 'EnableTopMost', g:VimTopMost)
-    endfunction
-
-    "映射 Alt+Enter 切换全屏vim
-    map <a-enter> <esc>:call ToggleFullScreen()<cr>
-    "切换Vim是否在最前面显示
-    nmap <s-r> <esc>:call SwitchVimTopMostMode()<cr>
-    "增加Vim窗体的不透明度
-    nmap <s--> <esc>:call SetAlpha(10)<cr>
-    "增加Vim窗体的透明度
-    nmap <s-+> <esc>:call SetAlpha(-10)<cr>
-    "Vim启动的时候自动调用InitVim 以去除Vim的白色边框
-    autocmd GUIEnter * call libcallnr(g:MyVimLib, 'InitVim', 0)
-    " 默认设置透明
-    autocmd GUIEnter * call libcallnr(g:MyVimLib, 'SetAlpha',220)
-endif
-" }}}
 
   nnoremap <c-f> :call JsBeautify()<cr>
   autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
   autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
   autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-
 " 配置模版文件
 let g:enable_template = 1
 let g:template_dir = "~/.vim/templates"
