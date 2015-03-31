@@ -38,6 +38,12 @@ Bundle 'luishdez/vim-less'
 Bundle 'css_color.vim'
 Bundle 'ctrlp.vim'
 Bundle 'vim-javascript'
+Bundle "lepture/vim-velocity"
+Bundle 'mikelue/vim-maven-plugin'
+Bundle 'mhinz/vim-startify'
+Bundle 'uguu-org/vim-matrix-screensaver'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'aquach/vim-http-client
 
 "允许使用indent目录下的文件类型缩进
 
