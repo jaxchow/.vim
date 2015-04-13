@@ -16,7 +16,7 @@ filetype plugin on
 "语法高亮打开，关键字上色
 syntax on
 "call pathogen#infect()
-set rtp+=$HOME/vimfiles/bundle/vundle/  
+set rtp+=~/.vim/bundle/vundle/  
 call vundle#rc()
 
 Bundle 'kchmck/vim-coffee-script'  
@@ -33,17 +33,17 @@ Bundle 'Emmet.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'vimim'
-Bundle "lepture/vim-css"
+Bundle 'lepture/vim-css'
 Bundle 'luishdez/vim-less'
 Bundle 'css_color.vim'
 Bundle 'ctrlp.vim'
 Bundle 'vim-javascript'
-Bundle "lepture/vim-velocity"
+Bundle 'lepture/vim-velocity'
 Bundle 'mikelue/vim-maven-plugin'
 Bundle 'mhinz/vim-startify'
 Bundle 'uguu-org/vim-matrix-screensaver'
 Bundle 'plasticboy/vim-markdown'
-Bundle 'aquach/vim-http-client
+Bundle 'aquach/vim-http-client'
 
 "允许使用indent目录下的文件类型缩进
 
@@ -228,11 +228,11 @@ let g:template_dir = "~/.vim/templates"
 let g:project_enable_welcome = 1
 " if you want the NERDTree integration.
 let g:project_use_nerdtree = 1
-call project#rc("~/workspace/iasp/trunk/Sources/")
-Project "iasp-web","web"
-call project#rc("~/workspace/iasp/trunk/Sources2/")
-Project "ihom2","ihom2"
-Project "ihoms2-static","ihoms2-static"
+"call project#rc("~/workspace/iasp/trunk/Sources/")
+"Project "iasp-web","web"
+"call project#rc("~/workspace/iasp/trunk/Sources2/")
+"Project "ihom2","ihom2"
+"Project "ihoms2-static","ihoms2-static"
 "autocmd InsertLeave * call handlerChange()
 "func! handlerChange()
 "    
