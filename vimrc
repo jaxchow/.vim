@@ -46,7 +46,6 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'aquach/vim-http-client'
 
 "允许使用indent目录下的文件类型缩进
-
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 "autocmd GUIEnter * simalt ~x
 "set guifont=Consolas\:h14,Courier\ New\:h14,Courier\:h14
@@ -65,6 +64,10 @@ set noerrorbells
 "高亮显示匹配的括号
 set showmatch
 runtime macros/matchit.vim 
+set suffixesadd=.coffee,.js,.less,.css
+set includeexpr=substitute(v:fname,'^\\/','\\.','g') 
+set path=.,/usr/include,./views,./css,./images
+
 "设置透明度
 "set transparency=30
 "自动补全括号，包括大括号
