@@ -16,43 +16,61 @@ filetype plugin on
 "语法高亮打开，关键字上色
 syntax on
 "call pathogen#infect()
-set rtp+=~/.vim/bundle/vundle/  
-call vundle#rc()
 
-Bundle 'kchmck/vim-coffee-script'  
-Bundle 'coffee.vim'  
-Bundle 'html5.vim'
+if has('win32')
+	set rtp+=$VIM/vimfiles/bundle/vundle/
+	call vundle#rc('$VIM/vimfiles/bundle/')
+else
+	set rtp+=~/.vim/bundle/vundle/
+	call vundle#rc()
+endif
+
+"plugins
+Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
-Bundle 'amiorin/vim-project'
 Bundle 'tyok/ack.vim'
 Bundle 'taglist.vim'
-
-Bundle 'jshint.vim'
-Bundle 'jsbeautify'
-Bundle 'Emmet.vim'
+Bundle 'ctrlp.vim'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'Shougo/neocomplcache.vim'
-Bundle 'vimim'
-Bundle 'lepture/vim-css'
-Bundle 'luishdez/vim-less'
-Bundle 'css_color.vim'
-Bundle 'ctrlp.vim'
-Bundle 'vim-javascript'
-Bundle 'lepture/vim-velocity'
-Bundle 'mikelue/vim-maven-plugin'
+"projects
+Bundle 'amiorin/vim-project'
 Bundle 'mhinz/vim-startify'
 Bundle 'uguu-org/vim-matrix-screensaver'
-Bundle 'plasticboy/vim-markdown'
 Bundle 'aquach/vim-http-client'
+"move select
+Bundle 'terryma/vim-multiple-cursors'
+"input method
+Bundle 'vimim'
+"color 
+Bundle 'molokai'
+"syntax
+Bundle 'Emmet.vim'
+Bundle 'html5.vim'
+Bundle 'vim-javascript'
+Bundle 'coffee.vim'  
+Bundle 'kchmck/vim-coffee-script'  
+Bundle 'css_color.vim'
+Bundle 'lepture/vim-css'
+Bundle 'jshint.vim'
+Bundle 'jsbeautify'
+Bundle 'luishdez/vim-less'
+
+Bundle 'plasticboy/vim-markdown'
+Bundle 'lepture/vim-velocity'
+Bundle 'mikelue/vim-maven-plugin'
+"version
+Bundle 'airblade/vim-gitgutter'
+Bundle 'sjl/gundo.vim'
 
 "允许使用indent目录下的文件类型缩进
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 "autocmd GUIEnter * simalt ~x
-"set guifont=Consolas\:h14,Courier\ New\:h14,Courier\:h14
+set guifont=Consolas\:h14,Courier\ New\:h14,Courier\:h14
 set nu
 set cursorline
 set cursorcolumn
-set guifont=Monaco\:h14
+"set guifont=Monaco\:h14
 set guioptions-=T
 "set guioptions-=m
 set guioptions-=L
@@ -63,8 +81,21 @@ set shortmess=atI
 set noerrorbells
 "高亮显示匹配的括号
 set showmatch
+set fdm=indent
+set smartindent
+set sm!
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+colors molokai
+let $VIMDATA = $VIMFILES.'/vimdata'
+"set backupdir=$VIMDATA/backup
+"set directory=$VIMDATA/temp
+set nobackup
+set noswapfile
 runtime macros/matchit.vim 
-set suffixesadd=.coffee,.js,.less,.css
+set suffixesadd=.coffee,.js,.less,.css,.html,.ftl
 set includeexpr=substitute(v:fname,'^\\/','\\.','g') 
 set path=.,/usr/include,./views,./css,./images
 
@@ -80,7 +111,7 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 ":inoremap [ []<ESC>i
 ":inoremap ] <c-r>=ClosePair(']')<CR>
 ":inoremap < <><ESC>i
-":inoremap > <c-r>=ClosePair('>')<CR>
+:inoremap > <c-r>=ClosePair('>')<CR>
 "使用菜单式匹配列表进行自动补全
 set wildmenu
 let g:NeoComplCache_EnableAtStartup = 1
@@ -112,19 +143,6 @@ autocmd FileType java set omnifunc=javacomplete#Complet
 "highlight SpellRare term=underline cterm=underline
 "highlight clear SpellLocal
 "highlight SpellLocal term=underline cterm=underline
-set fdm=indent
-set smartindent
-set sm!
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set autoindent
-colors koehler
-let $VIMDATA = $VIMFILES.'/vimdata'
-"set backupdir=$VIMDATA/backup
-"set directory=$VIMDATA/temp
-set nobackup
-set noswapfile
 "自动补全
 set completeopt=longest,menu
 
@@ -219,24 +237,30 @@ func! CompileRunGcc()
     endif
 endfunc
 
-  nnoremap <c-f> :call JsBeautify()<cr>
-  autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
-  autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-  autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+nnoremap <c-s-f> :call JsBeautify()<cr>
+autocmd FileType javascript noremap <buffer>  <c-s-f> :call JsBeautify()<cr>
+autocmd FileType html noremap <buffer> <c-s-f> :call HtmlBeautify()<cr>
+autocmd FileType css noremap <buffer> <c-s-f> :call CSSBeautify()<cr>
 " 配置模版文件
 let g:enable_template = 1
 let g:template_dir = "~/.vim/templates"
-
+"gundo.vim
+nnoremap <F9> :GundoToggle<CR>
+let g:gundo_width = 20
+let g:gundo_preview_height = 20
+let g:gundo_right = 1
 " vim project config
 let g:project_enable_welcome = 1
 " if you want the NERDTree integration.
 let g:project_use_nerdtree = 1
-"call project#rc("~/workspace/iasp/trunk/Sources/")
-"Project "iasp-web","web"
-"call project#rc("~/workspace/iasp/trunk/Sources2/")
-"Project "ihom2","ihom2"
-"Project "ihoms2-static","ihoms2-static"
-"autocmd InsertLeave * call handlerChange()
-"func! handlerChange()
-"    
-"endfunc
+call project#rc("~/workspace/iasp/trunk/Sources/")
+Project "iasp-web","web"
+call project#rc("~/workspace/iasp/trunk/Sources2/")
+Project "ihom2","ihom2"
+Project "ihoms2-static","ihoms2-static"
+Project "ihoms3-static","ihoms3-static"
+call project#rc("~/workspace/iasp/trunk/Sources3/")
+Project "iasp3","iasp3"
+Project "iasp3-static","iasp3-static"
+Project "trustshop","trustshop"
+Project "trustshop-static","trustshop-static"
