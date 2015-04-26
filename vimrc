@@ -58,6 +58,7 @@ Bundle 'luishdez/vim-less'
 
 Bundle 'plasticboy/vim-markdown'
 Bundle 'lepture/vim-velocity'
+Bundle 'chaquotay/ftl-vim-syntax'
 Bundle 'mikelue/vim-maven-plugin'
 "version
 Bundle 'airblade/vim-gitgutter'
@@ -180,8 +181,10 @@ let g:use_emmet_complete_tag = 1
 "开启CSS3语法支持
 au BufRead,BufNewFile *.css set ft=css syntax=css3
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
+au BufRead,BufNewFile *.coffee set ft=coffee syntax=coffee
 au BufNewFile,BufRead *.less set filetype=less
 au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
+au BufNewFile,BufRead *.ftl,*.html set ft=ftl
 "NERDTree plugin
   autocmd vimenter * NERDTree
   nmap <F3> :NERDTree<CR>    
@@ -264,3 +267,5 @@ Project "iasp3","iasp3"
 Project "iasp3-static","iasp3-static"
 Project "trustshop","trustshop"
 Project "trustshop-static","trustshop-static"
+call project#rc("~/workspace/hns/")
+Project "hns-server","hns-server"
