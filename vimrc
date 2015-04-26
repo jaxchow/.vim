@@ -208,10 +208,11 @@ au BufNewFile,BufRead *.ftl,*.html set ft=ftl
   set laststatus=2
   let g:Powerline_symbols = 'fancy'
 
-"VIMIM中文输入
+"VIMIM中文输入重新配置
 let g:vimim_toggle_list=1
 let g:vimim_ctrl_h_to_toggle=2
-let g:vimim_toggle_list='english,wubijd,wubijdloran,wubihf,sogou,wubi,pinyin'
+let g:vimim_map='tab_as_onekey'
+let g:vimim_toggle_list='english,wubi'
 "设置静态输入(空格后才出候选项)
 let g:vimim_chinese_input_mode='static'
 "双拼设置
@@ -219,8 +220,8 @@ let g:vimim_chinese_input_mode='static'
 "双拼类型
 ":let g:vimim_shuangpin='ms'
 "设置输入候选项目的数量
+let g:vimim_cloud=-1 " 彻底关闭云输入，五笔使用者可选
 let g:vimim_more_candidates=8
-let g:vimim_map='c-space'
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
