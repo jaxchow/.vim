@@ -8,7 +8,7 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 behave mswin
-autocmd bufwritepost _vimrc source%
+autocmd bufwritepost vimrc source %
 "侦测文件类型
 filetype on
 "载入文件类型插件
@@ -26,12 +26,12 @@ else
 endif
 
 "plugins
-Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
 Bundle 'tyok/ack.vim'
 Bundle 'taglist.vim'
 Bundle 'ctrlp.vim'
-Bundle 'Lokaltog/vim-powerline'
+
+Bundle 'bling/vim-airline'
 Bundle 'Shougo/neocomplcache.vim'
 "projects
 Bundle 'amiorin/vim-project'
@@ -64,16 +64,17 @@ Bundle 'mikelue/vim-maven-plugin'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'sjl/gundo.vim'
 
-"允许使用indent目录下的文件类型缩进
+"解决中文乱码问题
+"set encoding=utf-8
+"set fileencoding=utf-8
 set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
-"autocmd GUIEnter * simalt ~x
-set guifont=Consolas\:h14,Courier\ New\:h14,Courier\:h14
 set nu
 set cursorline
 set cursorcolumn
-"set guifont=Monaco\:h14
+"set guifont=Monaco\:h11
+"set guifont=Consolas\:h12,Courier\ New\:h12,Courier\:h12
 set guioptions-=T
-"set guioptions-=m
+set guioptions-=m
 set guioptions-=L
 set guioptions-=r
 "启动的时候不显示那个援助索马里儿童的提示
@@ -85,6 +86,8 @@ set showmatch
 set fdm=indent
 set smartindent
 set sm!
+set cc=75
+"允许使用indent目录下的文件类型缩进
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
@@ -98,10 +101,10 @@ set noswapfile
 runtime macros/matchit.vim 
 set suffixesadd=.coffee,.js,.less,.css,.html,.ftl
 set includeexpr=substitute(v:fname,'^\\/','\\.','g') 
-set path=.,/usr/include,./views,./css,./images
+set path=.,/usr/include,./views,./css,./images,./js
 
 "设置透明度
-"set transparency=30
+set transparency=5
 "自动补全括号，包括大括号
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 " 用空格键来开关折叠
@@ -112,7 +115,7 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 ":inoremap [ []<ESC>i
 ":inoremap ] <c-r>=ClosePair(']')<CR>
 ":inoremap < <><ESC>i
-:inoremap > <c-r>=ClosePair('>')<CR>
+":inoremap > <c-r>=ClosePair('>')<CR>
 "使用菜单式匹配列表进行自动补全
 set wildmenu
 let g:NeoComplCache_EnableAtStartup = 1
@@ -182,8 +185,8 @@ let g:use_emmet_complete_tag = 1
 au BufRead,BufNewFile *.css set ft=css syntax=css3
 au BufRead,BufNewFile *.js set ft=javascript syntax=javascript
 au BufRead,BufNewFile *.coffee set ft=coffee syntax=coffee
-au BufNewFile,BufRead *.less set filetype=less
-au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml,*.stm set ft=velocity
+au BufNewFile,BufRead *.less set filetype=less syntax=less
+au BufNewFile,BufRead *.vm,*.html,*.htm,*.shtml set ft=velocity
 au BufNewFile,BufRead *.ftl,*.html set ft=ftl
 "NERDTree plugin
   autocmd vimenter * NERDTree
@@ -201,12 +204,35 @@ au BufNewFile,BufRead *.ftl,*.html set ft=ftl
   let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function;m:member'
   let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 
-"powerline
- " set guifont=PowerlineSymbols\ for\ Powerline
-  set nocompatible
-  set t_Co=256
-  set laststatus=2
-  let g:Powerline_symbols = 'fancy'
+"vim-airline
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+"let g:airline_extensions = ['branch', 'tabline']
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_section_a=airline#section#create(['mode',' ','branch',' ','ffenc'])
+let g:airline_section_b=airline#section#create(['hunks'])
+let g:airline_section_x=airline#section#create(['ffenc'])
+let g:airline_section_y=airline#section#create(['','[TYPE:','filetype',']','[TIME:','%{strftime("%H:%M")}',']'])
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = '▶'
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = '◀'
+let g:airline#extensions#tabline#right_alt_sep =''
+let g:airline#extensions#branch#enabled=1
+let g:airline#themes#molokia#palette={}
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 "VIMIM中文输入重新配置
 let g:vimim_toggle_list=1
@@ -236,7 +262,7 @@ func! CompileRunGcc()
         exec "!java %<"
     elseif &filetype == 'sh'
         exec "!./%"
-    elseif &filetype == 'javascript'
+    elseif &filetype == 'js'
         exec "!node ./%"
     endif
 endfunc
