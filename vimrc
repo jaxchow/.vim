@@ -62,6 +62,7 @@ Bundle 'chaquotay/ftl-vim-syntax'
 Bundle 'mikelue/vim-maven-plugin'
 "version
 Bundle 'airblade/vim-gitgutter'
+Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
 
 "解决中文乱码问题
@@ -71,7 +72,7 @@ set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 set nu
 set cursorline
 set cursorcolumn
-"set guifont=Monaco\:h11
+"set guifont=Monaco\:h12
 "set guifont=Consolas\:h12,Courier\ New\:h12,Courier\:h12
 set guioptions-=T
 set guioptions-=m
@@ -208,7 +209,8 @@ au BufNewFile,BufRead *.ftl,*.html set ft=ftl
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-"let g:airline_extensions = ['branch', 'tabline']
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions = ['branch', 'tabline']
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
@@ -221,18 +223,17 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
-let g:airline_section_a=airline#section#create(['mode',' ','branch',' ','ffenc'])
-let g:airline_section_b=airline#section#create(['hunks'])
+let g:airline_section_a=airline#section#create(['mode'])
+let g:airline_section_b=airline#section#create(['branch',' ','hunks'])
 let g:airline_section_x=airline#section#create(['ffenc'])
 let g:airline_section_y=airline#section#create(['','[TYPE:','filetype',']','[TIME:','%{strftime("%H:%M")}',']'])
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = '▶'
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#right_sep = '◀'
 let g:airline#extensions#tabline#right_alt_sep =''
-let g:airline#extensions#branch#enabled=1
-let g:airline#themes#molokia#palette={}
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme='powerlineish'
 
 "VIMIM中文输入重新配置
 let g:vimim_toggle_list=1
