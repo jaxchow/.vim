@@ -30,6 +30,8 @@ Bundle 'The-NERD-tree'
 Bundle 'tyok/ack.vim'
 Bundle 'taglist.vim'
 Bundle 'ctrlp.vim'
+Bundle 'editorconfig/editorconfig-vim'
+Bundle 'tpope/vim-surround'
 
 Bundle 'bling/vim-airline'
 Bundle 'Shougo/neocomplcache.vim'
@@ -64,6 +66,7 @@ Bundle 'mikelue/vim-maven-plugin'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
+Bundle 'rizzatti/dash.vim'
 
 "解决中文乱码问题
 "set encoding=utf-8
@@ -94,7 +97,7 @@ set softtabstop=4
 set shiftwidth=4
 set autoindent
 colors molokai
-let $VIMDATA = $VIMFILES.'/vimdata'
+"let $VIMDATA = $VIMFILES.'/vimdata'
 "set backupdir=$VIMDATA/backup
 "set directory=$VIMDATA/temp
 set nobackup
@@ -268,18 +271,13 @@ func! CompileRunGcc()
     endif
 endfunc
 
-nnoremap <c-s-f> :call JsBeautify()<cr>
-autocmd FileType javascript noremap <buffer>  <c-s-f> :call JsBeautify()<cr>
-autocmd FileType html noremap <buffer> <c-s-f> :call HtmlBeautify()<cr>
-autocmd FileType css noremap <buffer> <c-s-f> :call CSSBeautify()<cr>
+"nnoremap <c-s-f> :call Jsbeautify()<cr>
+"autocmd FileType javascript noremap <buffer>  <c-s-f> :call Jsbeautify()<cr>
+"autocmd FileType html noremap <buffer> <c-s-f> :call HtmlBeautify()<cr>
+"autocmd FileType css noremap <buffer> <c-s-f> :call CSSBeautify()<cr>
 " 配置模版文件
 let g:enable_template = 1
 let g:template_dir = "~/.vim/templates"
-"gundo.vim
-nnoremap <F9> :GundoToggle<CR>
-let g:gundo_width = 20
-let g:gundo_preview_height = 20
-let g:gundo_right = 1
 " vim project config
 let g:project_enable_welcome = 1
 " if you want the NERDTree integration.
