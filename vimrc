@@ -44,8 +44,11 @@ Bundle 'aquach/vim-http-client'
 Bundle 'terryma/vim-multiple-cursors'
 "input method
 Bundle 'vimim'
+"snippets
+Bundle "justinj/vim-react-snippets"
 "color 
 Bundle 'molokai'
+
 "syntax
 Bundle 'Emmet.vim'
 Bundle 'html5.vim'
@@ -67,6 +70,9 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-fugitive'
 Bundle 'sjl/gundo.vim'
 Bundle 'rizzatti/dash.vim'
+Bundle 'junegunn/vim-emoji'
+Bundle 'vim-scripts/loremipsum'
+
 
 "解决中文乱码问题
 "set encoding=utf-8
@@ -75,7 +81,7 @@ set fileencodings=utf-8,ucs-bom,cp936,gbk,gb2312,big5,latin1
 set nu
 set cursorline
 set cursorcolumn
-"set guifont=Monaco\:h12
+set guifont=Monaco\:h14
 "set guifont=Consolas\:h12,Courier\ New\:h12,Courier\:h12
 set guioptions-=T
 set guioptions-=m
@@ -108,7 +114,7 @@ set includeexpr=substitute(v:fname,'^\\/','\\.','g')
 set path=.,/usr/include,./views,./css,./images,./js
 
 "设置透明度
-set transparency=5
+set transparency=3
 "自动补全括号，包括大括号
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 " 用空格键来开关折叠
@@ -130,6 +136,7 @@ let g:NeoComplCache_EnableCamelCaseCompletion = 1
 let g:NeoComplCache_MinSyntaxLength = 3
 let g:NeoComplCache_EnableSkipCompletion = 1
 let g:NeoComplCache_SkipInputTime = '0.5'
+"自动完成提示
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -208,6 +215,7 @@ au BufNewFile,BufRead *.ftl,*.html set ft=ftl
   let Tlist_JS_Settings = 'javascript;s:string;a:array;o:object;f:function;m:member'
   let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 
+
 "vim-airline
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
@@ -238,20 +246,20 @@ let g:airline#extensions#tabline#right_alt_sep =''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_theme='powerlineish'
 
+
+
 "VIMIM中文输入重新配置
-let g:vimim_toggle_list=1
-let g:vimim_ctrl_h_to_toggle=2
-let g:vimim_map='tab_as_onekey'
-let g:vimim_toggle_list='english,wubi'
-"设置静态输入(空格后才出候选项)
-let g:vimim_chinese_input_mode='static'
-"双拼设置
-":let g:vimim_shuangpin=1
-"双拼类型
-":let g:vimim_shuangpin='ms'
-"设置输入候选项目的数量
-let g:vimim_cloud=-1 " 彻底关闭云输入，五笔使用者可选
+let g:vimim_map='tab_as_onekey' " 将Tab键设为 点石成金 的快捷键
+let g:vimim_mode='dynamic' " 动态输入模式（缺省），如果设为static，则需要按空格才会出候选框
+let g:vimim_punctuation=2 " 常用中文标点（缺省），为0时不用中文标点
+let g:vimim_plugin='~/.vim/plugin' " 缺省是vim plugin，如果你的插件不是放在默认目录，这里需要设置
+let g:vimim_toggle_list='english,wubi,baidu' " 设定输入法循环次序，是先五笔还是先拼音
+let g:vimim_cloud='baidu' " 彻底关闭云输入，五笔使用者可选
 let g:vimim_more_candidates=8
+
+  
+
+
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
@@ -295,3 +303,5 @@ Project "trustshop","trustshop"
 Project "trustshop-static","trustshop-static"
 call project#rc("~/workspace/hns/")
 Project "hns-server","hns-server"
+call project#rc("~/workspace/")
+Project "BabelES6","BabelES6"
